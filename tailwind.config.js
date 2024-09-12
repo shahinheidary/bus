@@ -4,13 +4,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Jakarta: ["Jakarta", "sans-serif"],
-        JakartaBold: ["Jakarta-Bold", "sans-serif"],
-        JakartaExtraBold: ["Jakarta-ExtraBold", "sans-serif"],
-        JakartaExtraLight: ["Jakarta-ExtraLight", "sans-serif"],
-        JakartaLight: ["Jakarta-Light", "sans-serif"],
-        JakartaMedium: ["Jakarta-Medium", "sans-serif"],
-        JakartaSemiBold: ["Jakarta-SemiBold", "sans-serif"],
+        Vazirmatn: ["Vazirmatn", "sans-serif"],
+        VazirmatnBlack: ["Vazirmatn-Black", "sans-serif"],
+        VazirmatnBold: ["Vazirmatn-Bold", "sans-serif"],
+        VazirmatnExtraBold: ["Vazirmatn-ExtraBold", "sans-serif"],
+        VazirmatnExtraLight: ["Vazirmatn-ExtraLight", "sans-serif"],
+        VazirmatnLight: ["Vazirmatn-Light", "sans-serif"],
+        VazirmatnMedium: ["Vazirmatn-Medium", "sans-serif"],
+        VazirmatnThin: ["Vazirmatn-Thin", "sans-serif"],
+        VazirmatnRegular: ["Vazirmatn-Regular", "sans-serif"],
+        VazirmatnSemiBold: ["Vazirmatn-SemiBold", "sans-serif"],
       },
       colors: {
         primary: {

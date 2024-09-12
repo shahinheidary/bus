@@ -9,13 +9,15 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
-    "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
-    "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
-    "Jakarta-Light": require("../assets/fonts/PlusJakartaSans-Light.ttf"),
-    "Jakarta-Medium": require("../assets/fonts/PlusJakartaSans-Medium.ttf"),
-    "Jakarta-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
-    "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
+    "Vazirmatn-Black": require("../assets/fonts/Vazirmatn-Black.ttf"),
+    "Vazirmatn-Bold": require("../assets/fonts/Vazirmatn-Bold.ttf"),
+    "Vazirmatn-ExtraBold": require("../assets/fonts/Vazirmatn-ExtraBold.ttf"),
+    "Vazirmatn-ExtraLight": require("../assets/fonts/Vazirmatn-ExtraLight.ttf"),
+    "Vazirmatn-Light": require("../assets/fonts/Vazirmatn-Light.ttf"),
+    "Vazirmatn-Medium": require("../assets/fonts/Vazirmatn-Medium.ttf"),
+    "Vazirmatn-Regular": require("../assets/fonts/Vazirmatn-Regular.ttf"),
+    "Vazirmatn-SemiBold": require("../assets/fonts/Vazirmatn-SemiBold.ttf"),
+    "Vazirmatn-Thin": require("../assets/fonts/Vazirmatn-Thin.ttf"),
   });
 
   useEffect(() => {
