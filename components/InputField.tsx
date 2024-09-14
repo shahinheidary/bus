@@ -20,6 +20,7 @@ const InputField = ({
   inputStyle,
   iconStyle,
   className,
+  sub,
   ...props
 }: InputFieldProps) => {
   return (
@@ -31,6 +32,11 @@ const InputField = ({
           <Text className={`text-lg font-JakartaSemiBold mb-3 ${labelStyle}`}>
             {label}
           </Text>
+          {sub && (
+            <Text className="text-sm text-red-300 font-VazirmatnExtraLight mb-1">
+              {sub}
+            </Text>
+          )}
           <View
             className={`flex  flex-row-reverse justify-start items-center relative bg-neutral-100 rounded-full border border-neutral-100 focus:border-primary-500  ${containerStyle}`}
           >

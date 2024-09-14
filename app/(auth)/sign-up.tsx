@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons, images } from "@/constants";
@@ -7,9 +7,12 @@ import CustomButton from "@/components/CustomButton";
 import { Link, router } from "expo-router";
 import OAuth from "@/components/OAuth";
 import { useSignUp } from "@clerk/clerk-expo";
+import ReactNativeModal from "react-native-modal";
+import { fetchAPI } from "@/lib/fetch";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [verification, setVerification] = useState({
     state: "default",
     error: "",
@@ -34,7 +37,7 @@ const SignUp = () => {
         code: "",
       });
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      Alert.alert("Error", err.errors[0].longMessage);
     }
   };
 
@@ -49,7 +52,14 @@ const SignUp = () => {
       });
 
       if (completeSignUp.status === "complete") {
-        // Todo:create a database user
+        await fetchAPI("/(api)/user", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({
           ...verification,
@@ -103,6 +113,7 @@ const SignUp = () => {
           />
           <InputField
             placeholder={`حداقل 8 رقم`}
+            sub="لطفا از حروف بزرگ ، کوچک ، اعداد و علائم استفاده کنید"
             label="رمزعبور"
             icon={icons.lock}
             className="text-right"
@@ -125,6 +136,61 @@ const SignUp = () => {
           </Link>
         </View>
         {/* Modal Verification */}
+        <ReactNativeModal isVisible={showSuccessModal}>
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Image
+              source={images.check}
+              className="w-[110px] h-[110px] mx-auto my-5"
+              resizeMode="contain"
+            />
+            <Text className="text-3xl text-center text-general-900 font-VazirmatnBold">
+              تبریک
+            </Text>
+            <Text className="text-base text-gray-400 font-VazirmatnMedium text-center mt-2">
+              حساب کاربری شما با موفقیت ایجاد شد
+            </Text>
+            <CustomButton
+              title="ورود"
+              onPress={() => router.push("/(root)/(tabs)/home")}
+              className="mt-5"
+            />
+          </View>
+        </ReactNativeModal>
+        <ReactNativeModal
+          isVisible={verification.state === "pending"}
+          onModalHide={() => {
+            if (verification.state === "success") setShowSuccessModal(true);
+          }}
+        >
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Text className="text-2xl font-VazirmatnExtraBold mb-2">
+              احراز هویت
+            </Text>
+            <Text className="font-VazirmatnMedium mb-5">
+              یک کد احراز هویت به {form.email} ارسال شد.
+            </Text>
+            <InputField
+              label="کد"
+              icon={icons.lock}
+              placeholder="123456"
+              value={verification.code}
+              keyboardType="numeric"
+              onChangeText={(code) =>
+                setVerification({ ...verification, code })
+              }
+            />
+            {verification.error && (
+              <Text className="text-red-500 text-sm mt-1">
+                {verification.error}
+              </Text>
+            )}
+            <CustomButton
+              title="تایید"
+              onPress={onPressVerify}
+              className="mt-5 bg-success-500"
+            />
+          </View>
+        </ReactNativeModal>
       </View>
     </ScrollView>
   );
